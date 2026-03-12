@@ -1,22 +1,70 @@
 <!DOCTYPE html>
 
-<html lang="pt-br"> 
- <head>
-  <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lange="pt-br"></HTML>
+    <head>
+       <meta charset="UTF-8">
+         <!--
+              <meta charset> Define o conjunto de caracteres (enconding) 
+              da pagina. UTF-8 garante que acertos e caracteres especiais
+               apareçam corretamente.
+         -->
+         <meta name="viewport" contente="width=device-width, initial-scale=1.0">
 
- <!--
- <meta viewport>: esta tag é importante para sites que deve funcionar em dispositivos móveis. width-device -
+         <!--
+         <meta viewport>:  esta tag é importante para sites de devem funcionar
+         em dispositivos móveis (celular). width-device  -> garante que a 
+         largura da página vai ser adaptar á largura do dispositivo.
+         initial-scale=1 -> não aplica zoom automático ao abrir a página.
+         Sem ela o celular vai tentar mostrar a página como se fosse no computador
+         -->
+        <title>Jogo da Cobrinha</title>
+
+        <!--
+        Estilos e CSS vão ficar abaixo desta linha - Próxima aula
+        -->
+
+        <style>
+
+            .container{
+                text-align: center;
+                background-color: rgb(255, 116, 202);
+                padding: 30px;
+                border-radius: 20px;
+                box-shadow: 0px 10px 30px rgb(240, 5, 169);
+            }
  
+            .info{
+                font-size: 1em:
+            }
 
- -->
+            .pontuacao{
+               font-weight: bold;
+               color:blueviolet;
+            }
 
- <title>Jogo da Cobrinha</title>
+        </style>
 
- </head>
 
- <body>
-    <h3> em breve teremos algo</h3>
- </body>
+    </head>
+    <body> 
 
+        <div   class="container">
+           <h1> &#128013;🍎​  Jogo da Cobrinha &#9760;</h1>
+
+            <div class="info"> 
+
+             <div class="pontuacao"> 
+                 Pontuação: 0
+
+              </div>
+
+             <div class="recorde"> 
+                Recorde: 0
+           </div>
+
+           </div>
+        </div>
+
+    </body>
+          
 </html>
