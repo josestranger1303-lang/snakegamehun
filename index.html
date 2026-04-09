@@ -175,13 +175,13 @@
                
                <div class="tecla vazio"></div>
 
-               <div class="tecla">&#9650;</div>
+               <div class="tecla" onclick="mudarDirecao('cima')">&#9650;</div>
 
                <div class="tecla vazio"></div>
 
-               <div class="tecla">&#9668;</div>
-               <div class="tecla">&#9660;</div>
-               <div class="tecla">&#9658;</div>
+               <div class="tecla" "mudarDirecao('esquerda')">&#9668;</div>
+               <div class="tecla" "mudarDirecao('baixo')">&#9660;</div>
+               <div class="tecla" "mudarDirecao('direita')">&#9658;</div>
                
            </div>
 
@@ -198,7 +198,11 @@
 
 <script>
 
- function iniciarJogo(){
+function mudarDirecao(novaDirecao){
+    console.log(novaDirecao)
+}
+ 
+function iniciarJogo(){
     console.log("Jogo sapeca começou!!!");
  }
 
