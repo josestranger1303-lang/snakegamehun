@@ -260,6 +260,16 @@
                         x : Math.floor(Math.random() * quantidadeQuadrados),
                         y : Math.floor(Math.random() * quantidadeQuadrados)
                     }
+
+                    posicaoValida = true;
+
+                    for(let pedaco of cobra){
+
+                        if(comida.x == pedaco.x && comida.y === pedaco.y){
+                            posicaoValida = false;
+                            break;
+                        }
+                    }
                 }
             }
 
