@@ -249,10 +249,19 @@
                 document.getElementById('pontos').textContent = pontos;
             }
 
+            //============================
+            //====FUNÇÃO PRA GERAR COMIDA
+            //============================
+            function gerarComida(){
+                let posicaoValida = false;
 
-
-
-
+                while(!posicaoValida){
+                    comida = {
+                        x : Math.floor(Math.random() * quantidadeQuadrados),
+                        y : Math.floor(Math.random() * quantidadeQuadrados)
+                    }
+                }
+            }
 
             function mudarDirecao(novaDirecao){
                 console.log(novaDirecao)
