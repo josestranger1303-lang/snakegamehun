@@ -250,6 +250,10 @@
 
                 gerarComida();
 
+                if(intervaloJogo){
+
+                }
+
                 intervaloJogo = setInterval(atualizarJogo, 100);
             }
 
@@ -258,7 +262,25 @@
             // FUNÇÃO PRINCIPAL DO JOGO (LOOP)
             //=================================
             function atualizarJogo(){
-                console.log('executou');
+                if(!jogoAtivo || jogoPausado){
+                    return;
+                }
+
+                direcao = proximaDirecao;
+
+                let cabeca = {...cobra[0]}
+
+                desenhar();
+            }
+
+            function desenhar(){
+                //limpar o fundo do canvas
+                ctx.fillStyle = '#f0f0f0';
+                ctx.fillStyle(0, 0, canvas.width, canvas.height);
+
+                //Desenhar a grade (opcional)
+                ctx.strokeStyle = '#e0e0e0';
+                ctx.linewidth = 0.5;
             }
 
             //============================
@@ -286,7 +308,8 @@
             }
 
             function mudarDirecao(novaDirecao){
-                console.log(novaDirecao)
+                    proximaDirecao = novaDirecao;
+                
             }
             
             function iniciarJogo(){
@@ -295,6 +318,7 @@
 
             function pausarJogo(){
                 console.log("Pausa na sapecagem!!");
+
             }
 
         </script>
