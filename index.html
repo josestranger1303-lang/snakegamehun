@@ -247,6 +247,18 @@
                 jogoPausado = false;
 
                 document.getElementById('pontos').textContent = pontos;
+
+                gerarComida();
+
+                intervaloJogo = setInterval(atualizarJogo, 100);
+            }
+
+
+            //=================================
+            // FUNÇÃO PRINCIPAL DO JOGO (LOOP)
+            //=================================
+            function atualizarJogo(){
+                console.log('executou');
             }
 
             //============================
