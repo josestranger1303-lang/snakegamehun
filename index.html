@@ -1,76 +1,80 @@
 <!DOCTYPE html>
 
-<html lange="pt-br"></HTML>
+<html lang="pt-br">
     <head>
-       <meta charset="UTF-8">
-         <!--
-              <meta charset> Define o conjunto de caracteres (enconding) 
-              da pagina. UTF-8 garante que acertos e caracteres especiais
-               apareçam corretamente.
-         -->
-         <meta name="viewport" contente="width=device-width, initial-scale=1.0">
-
-         <!--
-         <meta viewport>:  esta tag é importante para sites de devem funcionar
-         em dispositivos móveis (celular). width-device  -> garante que a 
-         largura da página vai ser adaptar á largura do dispositivo.
-         initial-scale=1 -> não aplica zoom automático ao abrir a página.
-         Sem ela o celular vai tentar mostrar a página como se fosse no computador
-         -->
+        <meta charset="UTF-8">
+        <!--
+             <meta charset> Define o conjunto de caracteres (enconding) 
+             da página. UTF-8 garante que acentos e caracteres especiais
+             apareçam corretamente.
+        -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--
+        <meta viewport>:  esta tag é imortante para sites que devem funcionar
+        em dispositivos móveis (celular). width-device -> garate que a
+        largura da página vai ser adaptar à largura do dispositivo.
+        initial-scale=1 -> não aplica zoom automático ao abrir a página. 
+        Sem ela o celular vai tentar mostrar a página como se fosse um computador
+        -->
         <title>Jogo da Cobrinha</title>
 
         <!--
-        Estilos e CSS vão ficar abaixo desta linha - Próxima aula
+        Estilos e CSS vão ficar abaixo desta linha - Próxima Aual
         -->
 
         <style>
 
-            .container{
-                text-align: center;
-                background-color: rgba(253, 129, 226, 0.842);
-                padding: 30px;
-                border-radius: 20px;
-                box-shadow: 0px 10px 30px rgb(255, 230, 0);
-            }
- 
-            .info{
-                font-size: 1em:
+            .container {
+              text-align: center;  
+              background-color: white;
+              padding: 30px;
+              border-radius: 20px;
+              box-shadow: 0px 10px 30px black;
             }
 
-            .pontuacao{
-               font-weight: bold;
-               color:rgb(255, 221, 30);
+            .info {
+                font-size: 1em;
+            }
+
+            .pontuacao {
+                font-weight: bold;
+                color: #28a745;
+            }
+
+            .recorde {
+                font-weight: bold;
+                color: #a72839;  
             }
 
             #canvas{
-                border: 3px solid #da10ae;
-                border-radius: 10px;
-                background-color: rgb(255, 228, 74);
+                border: 3px solid #333;
+                border-radius:  10px;
+                background-color: #F0F0F0;
                 display: block;
 
                 margin: 20px auto;
-                box-shadow: 0px 5px 15px rgba(255, 239, 22, 0.2);
-
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
             }
 
             .controles {
                 margin-top: 20px;
             }
 
-            button{
-        
+            button {
+                
                 font-size: 16px;
                 cursor: pointer;
-                background-color:rgb(255, 238, 0);
-              
+                background-color: #28A745;
+
                 padding: 12px 25px;
-                color: rgb(255, 0, 170);
+                color: white;
                 border: none;
                 border-radius: 8px;
                 margin: 5px;
                 transition: all 0.3s ease;
             }
-            
+
             .teclas{
                 display: grid;
                 grid-template-columns: repeat(3, 50px);
@@ -78,15 +82,15 @@
                 justify-content: center;
                 margin: 15px auto;
             }
-            
+
             .tecla{
                 width: 50px;
                 height: 50px;
-                background-color:#da10ae;
-                color:rgb(243, 220, 87);
+                background-color: #667eea;
+                color: #F0F0F0;
                 border: none;
                 cursor: pointer;
-                border-radius: 5px;
+                border-radius: 45px;
                 font-size: 20px;
                 display: flex;
                 align-items: center;
@@ -95,7 +99,7 @@
             }
 
             .tecla:active{
-                background-color: #ffdd19;
+                background-color: #a72839;
             }
 
             .tecla.vazio{
@@ -106,314 +110,63 @@
             .instrucoes {
                 margin-top: 20px;
                 padding: 15px;
-                background-color: #eca4dd;
+                background-color: #e9ecef;
                 border-radius: 10px;
                 font-size: 14px;
-                color:#ffdd19
+                color: #555;
             }
 
             .instrucoes h3 {
                 margin-bottom: 10px;
-                color:rgb(255, 218, 10)
+                color: #333;
             }
 
-
+            /*   
+            MEDIA QUERY - adaptação para celular
+            É como definir renders diferentes para exibição em cinena (4K) vs 
+            Celular na vertical
+            */
             @media (max-width: 600px){
-                h1{
+                h1 {
                     font-size: 1.8em;
                 }
-                .info{
+                .info {
                     font-size: 1em;
                 }
             }
 
-
-
         </style>
-
     </head>
-    <body> 
+    <body>
 
-        <div   class="container">
-            <h1>    💝🌸 Jogo da Cobrinha 🫦💘​ </h1>
+        <div  class="container">
+            <h1>&#128013;  Jogo da Cobrinha &#128517;</h1>
 
-            <div class="info"> 
+            <div class="info">
 
-             <div class="pontuacao"> 
-                 Pontuação: <span id="pontos"></span>
-              </div>
+                <div class="pontuacao">
+                    Pontuação: <span id="pontos"> </span>
+                </div>
 
-             <div class="recorde"> 
-                Recorde: <span id="recorde"></span>
-           </div>
-
-           </div>
-
-           <canvas id="canvas" widht="400" height="400">
-              <!--
-            
-             <canvas>: é um elemento especial para desenho 2D ou 3D. Por si só, 
-             é apenas um retângulo vazio. O JavasScript vai usar o "contexto 2D"
-             para desenhar a cobra, e comida, etc   
-
-
-              -->
-
-           </canvas>
-
-
-           <div  class="controles">
-
-
-                <button onclick="iniciarJogo();">Iniciar Jogo</button>
-
-                <button>Pausar / Continuar</button>
-
-           </div>
-
-           <div class="teclas">
-               
-               <div class="tecla vazio"></div>
-
-               <div class="tecla" onclick="mudarDirecao('cima')">&#9650;</div>
-
-               <div class="tecla vazio"></div>
-
-               <div class="tecla" onclick="mudarDirecao('esquerda')">&#9668;</div>
-               <div class="tecla" onclick="mudarDirecao('baixo')">&#9660;</div>
-               <div class="tecla" onclick="mudarDirecao('direita')">&#9658;</div>
-               
-           </div>
-
-            <div class="instrucoes">
-
-                <h3>Como jogar:</h3>
-                <p>Use as setas do teclado ou os botões acima para controlar a cobra</p>
-                <p>Coma as maçãs vermelhas &#127822; para crescer e ganhar pontos</p>
-                <p>Não bata nas paredes nem no próprio corpo</p>
+                <div class="recorde">
+                    Recorde: <span id="recorde"> </span>
+                </div>
 
             </div>
-              
-        </div>
-
-        <script>
-
-            //=============================
-            // CONFIGURAÇÕES DO JOGO
-            //=============================
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-            // tamanho de cada quadrado no jogo
-            const tamanhoQuadrado = 20;
-            // quantos quadrados cabem na largura e altura do espaço 2D
-            const quantidadeQuadrados = canvas.widt / tamanhoQuadrado;
-
-
-            //=============================
-            // Variáveis do Jogo
-            //=============================
-            let cobra;              // Array (vetor) que guarda as posições da cobra
-            let direcao;            // Direção atual da cobra
-            let proximaDirecao;     // Próxima direção (evita viradas impossíveis)
-            let comida;             // Posição da comida
-            let pontos;             // Pontuação atual
-            let recorde;            // Melhor pontuação
-            let jogoAtivo;          // Se o jogo está rodando
-            let jogoPausado;        // Se o jogo está pausado
-            let intervaloJogo;      // Controla a velocidade do jogo
-
-
-            //==============================
-            // Carregar recorde do navegador
-            //==============================
-            recorde = localStorage.getItem('recordeCobrinha') || 0;
-            document.getElementById('recorde').textContent = recorde;
-
-
-            //===============================
-            // Função para iniciar o jogo
-            //===============================
-            <!DOCTYPE html>
-
-<html lang="pt-br"> 
- <head>
-  <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
- <!--
- <meta viewport>: esta tag é importante para sites que deve funcionar em dispositivos móveis. width-device -
- -->
-
- <title>Jogo da Cobrinha</title>
-
- <style>
-
-body{
-  background: radial-gradient(circle at top, #0f0f1a, #020617);
-  font-family: Arial, sans-serif;
-}
-
-.container{
-  text-align: center;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(10px);
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0px 0px 40px #00f0ff33;
-  color: #e0f7ff;
-  border: 1px solid #00f0ff55;
-}
-
-.info{
-  font-size: 1em;
-}
-
-.potuacao{
-  font-weight: bold;
-  color: #00f0ff;
-  text-shadow: 0 0 10px #00f0ff;
-}
-
-.recorde{
-  font-weight: bold;
-  color: #ff00c8;
-  text-shadow: 0 0 10px #ff00c8;
-}
-
-#canvas{
-  border: 3px solid #00f0ff;
-  border-radius: 10px;
-  background-color: #01030a;
-  display: block;
-  margin: 20px auto;
-  box-shadow: 
-    0px 0px 20px #00f0ff,
-    inset 0px 0px 20px #00f0ff22;
-}
-
-.controles{
-  margin-top: 20px;
-}
-
-button {
-  font-size: 16px;
-  cursor: pointer;
-  background: linear-gradient(45deg, #00f0ff, #0066ff);
-  color: #001018;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 10px;
-  margin: 5px;
-  transition: 0.3s;
-  box-shadow: 0 0 10px #00f0ff88;
-}
-
-button:hover{
-  transform: scale(1.1);
-  box-shadow: 0 0 20px #00f0ff;
-}
-
-.teclas{
-  display: grid;
-  grid-template-columns: repeat(3, 50px);
-  gap: 8px;
-  justify-content: center;
-  margin: 15px auto;
-}
-
-.tecla{
-  width: 50px;
-  height: 50px;
-  background: #020617;
-  color: #00f0ff;
-  border-radius: 8px;
-  cursor: pointer;
-  border: 1px solid #00f0ff55;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  box-shadow: 0 0 10px #00f0ff33;
-}
-
-.tecla:active{
-  background-color: #00f0ff;
-  color: #001018;
-}
-
-.tecla.vazio{
-  background-color: transparent;
-  cursor: default;
-  box-shadow: none;
-  border: none;
-}
-
-.instrucoes{
-  margin: 20px auto;
-  padding: 15px;
-  max-width: 300px; /* controla largura */
-  width: 90%; /* responsivo */
-  background: linear-gradient(45deg, #00f0ff, #ff00c8);
-  border-radius: 12px;
-  font-size: 14px;
-  color: #001018;
-  box-shadow: 0 0 20px #00f0ff55;
-  text-align: left; /* deixa mais organizado */
-}
-
-.instrucoes h3{
-  margin-bottom: 10px;
-  color: #000;
-}
-
-@media (max-width:600px){
-  h1{
-    font-size: 1.8em;
-  }
-  .info{
-    font-size: 1em;
-  }
-}
-
-</style>
-
- </head>
-
- <body>
-    
-
-    <div  class="container">
-
-    <h1>&#128013; Jogo da Cobrinha 
-    </h1>  
-
-   <div class="info">
-   <div class="potuacao">
-     Pontuacao: <span id="pontos"> 0 </span>
-   </div>
-
-<div class="recorde">
-  Recorde: <span id="recorde"> 0 </span>
-</div>
-
-   </div>
-  <canvas id="canvas" width="400" height="400">
-  <!--
-    <canvas> é um elemento  especial para desenho 2d ou 3d.Por si só
-    é apenas um retangulo vazio. O Java Script vai usar o "contexto 2d"
-    para desenhar a cobra, e comida, etc.
-
-    nah nah nah nahnahnah hey jude!
-  
-  -->
-
-  </canvas>
-
-       <div  class="controles">
+            <canvas id="canvas" width="400" height="400">
+                <!--
                 
-                <button onclick="iniciarJogo();">Iniciar Jogo</button>
-                <button onclick="pause();">pausar / continuar</button>
+                <canvas>: é um elemento especial para desenho 2D ou 3D. Por si só,
+                é apenas um retângulo vazio. O JavaScript vai usar o "contexto 2D" 
+                para desenhar a cobra, e comida, etc
+                -->
+
+            </canvas>
+
+            <div  class="controles">
+                
+                <button onclick="iniciarJogo()">Iniciar Jogo</button>
+                <button onclick="pausarJogo()">Pausar / Continuar</button>
 
             </div>
 
@@ -484,99 +237,93 @@ button:hover{
                 jogoAtivo = true;
                 jogoPausado = false;
 
-                document.getElementById ('pontos').textContent = pontos;
-                
+                document.getElementById('pontos').textContent = pontos;
+
                 gerarComida();
 
-            //Limpar o intervalo anterior se existir
-
+                //Limpar o intervalo anterior se existir
                 if(intervaloJogo){
                     clearInterval(intervaloJogo);
                 }
 
-
-            //======================================================
-            //Executa a função atualizarJogo a cada 100 milisegundos
-            //======================================================
-
-
+                //executa a função atualizarJogo a cada 100 milisegundos
                 intervaloJogo = setInterval(atualizarJogo, 100);
-
             }
-            
-            //===============================
-            //FUNÇÃO PRINCIPAL DO JOGO (LOOP)
-            //===============================
 
-                function atualizarJogo(){
-                    if(!jogoAtivo || jogoPausado){
-                        return;
-                    }
 
-                    direcao = proximaDirecao;
+            //===================================
+            // FUNÇÃO PRINCIPAL DO JOGO ( LOOP )
+            //===================================
+            function atualizarJogo(){
+               if(!jogoAtivo || jogoPausado){
+                    return;
+               }
 
-                    let cabeca = {...cobra[0]}
-
+               direcao = proximaDirecao;
                 
+               let cabeca = {...cobra[0]} 
 
-                        //mover a cabeça na direção atual
-                    desenhar();
-                }
+               //Mover a cabeça na direção atual
+               
+               desenhar();                
+            }
 
-                function desenhar(){
-                    //limpar o fundo do canvas
-                    ctx.fillStyle = '#f0f0f0';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+            //=============================
+            //FUNÇÃO PARA DESENHAR OS ELEMENTOS VISUAIS DO JOGO
+            //=============================
+            function desenhar(){
+                // PASSO 1
+                //Limpar o fundo do Canvas
+                ctx.fillStyle = '#f0f0f0';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                    //PASSO 2
-                    //Desenhar a grade (linhas de referência)
-              
-                    ctx.strokeStyle = '#000000';
-                    ctx.lineWidth = 0.5;
+                // PASSO 2
+                // Desenhar a grade (linhas de referência)
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 0.5;
 
-                  for(let i = 0; i <= quantidadeQuadrados; i++){
+                for(let i = 0; i <= quantidadeQuadrados; i++){
                     //Linha vertical
                     ctx.beginPath();
-                    ctx.moveTo(i* tamanhoQuadrado, 0);
-                    ctx.lineTo(i* tamanhoQuadrado, canvas.height);
+                    ctx.moveTo(i * tamanhoQuadrado, 0);
+                    ctx.lineTo(i * tamanhoQuadrado, canvas.height);
                     ctx.stroke();
 
                     //Linha horizontal
-                     ctx.beginPath();
-                    ctx.moveTo(i* tamanhoQuadrado, 0);
-                    ctx.lineTo(canvas.width, i* tamanhoQuadrado, canvas.height);
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * tamanhoQuadrado);
+                    ctx.lineTo(canvas.width, i * tamanhoQuadrado);
                     ctx.stroke();
-                  }
-                }
-
-            
-
-            //==============================
-            //Função para gerar comida
-            //==============================
+                } 
                
 
+                ctx.fill();
+            }
 
-                 function gerarComida(){
-                    let posicaovalida = false
-                    while(!posicaovalida){
-                        comida = {
-                            x : Math.floor(Math.random() * quantidadeQuadrados),
-                            y : Math.floor(Math.random() * quantidadeQuadrados)
+            //=============================
+            //====FUNÇÃO PARA GERAR COMIDA
+            //=============================
+            function gerarComida(){
+                let posicaoValida = false;
+
+                while(!posicaoValida){
+                    //gera uma posição aleatória para a comida
+                    comida = {
+                        x : Math.floor(Math.random() * quantidadeQuadrados),
+                        y : Math.floor(Math.random() * quantidadeQuadrados)
+                    }
+
+                    //verificar se a comida não está em cima da cobra
+                    posicaoValida = true;
+                    
+                    for(let pedaco of cobra){
+                        if(comida.x === pedaco.x && comida.y === pedaco.y ){
+                            posicaoValida = false;
+                            break;
                         }
-
-                        //verificar se a comida não está em cima da cobra
-                        posicaovalida = true;
-
-                        for(let pedaco of cobra){
-
-                            if(comida.x === pedaco.x && comida.y === pedaco.y){
-                                posicaovalida = false;
-                                break;
-                            }
-                        }
-                     }
-                  }
+                    }
+                }
+            }
 
             function mudarDirecao(novaDirecao){
                 //bem aqui vai aparecer um bug
