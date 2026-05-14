@@ -274,13 +274,28 @@
             }
 
             function desenhar(){
+                //PASSO 1
                 //limpar o fundo do canvas
                 ctx.fillStyle = '#f0f0f0';
-                ctx.fillStyle(0, 0, canvas.width, canvas.height);
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                //PASSO 2
+                //Sesenhar a grade (linhas de referencia)
+
 
                 //Desenhar a grade (opcional)
-                ctx.strokeStyle = '#e0e0e0';
+                ctx.strokeStyle = '#000000';
                 ctx.linewidth = 0.5;
+
+                for(let i = 0; i <= quantidadeQuadrados; i++){
+                   //Linha vertical
+                   ctx.beginPath();
+                   ctx.moveTo(i * tamanhoQuadrado, 0);
+                   ctx.lineTo(i * tamanhoQuadrado, canvas.height);
+                   ctx.stroke();
+                }
+
+                ctx.fill();
             }
 
             //============================
