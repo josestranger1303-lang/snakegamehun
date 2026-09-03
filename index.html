@@ -247,7 +247,7 @@
                 }
 
                 //executa a função atualizarJogo a cada 100 milisegundos
-                intervaloJogo = setInterval(atualizarJogo, 100);
+                intervaloJogo = setInterval(atualizarJogo, 500);
             }
 
 
@@ -264,8 +264,61 @@
                let cabeca = {...cobra[0]} 
 
                //Mover a cabeça na direção atual
-               
+               switch(direcao){
+                    case 'cima':
+                        cabeca.y--;
+                        break;
+                    
+                    case 'baixo':
+                        cabeca.y++;
+                        break;
+
+                    case 'esquerda':
+                        cabeca.x--;
+                        break;
+
+                    case 'direita':
+                        cabeca.x++;
+                        break;
+               }
+
+               // verificar colisão com paredes (esquerda ou direita)
+               if(cabeca.x < 0 || cabeca.x >= quantidadeQuadrados){
+                    fimDeJogo();
+                    return;
+               }
+
+               //verificar colisão com paredes (cima ou abaixo)
+                if(cabeca.y < 0 || cabeca.y >= quantidadeQuadrados){
+                    fimDeJogo();
+                    return;
+               }
+
+               // adiciona nova cabeça
+               cobra.unshift(cabeca);
+               //remover o último elemento do vetor
+               cobra.pop();
                desenhar();                
+            }
+            //============================
+            // FIM DE JOGO
+            //============================
+            function fimDeJogo(){
+                jogoAtivo = false;
+                
+                clearInterval(intervaloJogo);
+
+                //Desenhar mensagm de FIM DE JOGO
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 40px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('FIM DE JOGO', canvas.width / 2, canvas.height / 2);
+
+                ctx.font = '20px Arial';
+                ctx.fillText(`Pontuação: ${pontos}`, canvas.width / 2, (canvas.height / 2) + 50);
             }
 
             //=============================
@@ -279,23 +332,62 @@
 
                 // PASSO 2
                 // Desenhar a grade (linhas de referência)
-                ctx.strokeStyle = '#000000';
+                ctx.strokeStyle = '#e0e0e0';
                 ctx.lineWidth = 0.5;
 
                 for(let i = 0; i <= quantidadeQuadrados; i++){
-                    //Linha vertical
-                    ctx.beginPath();
-                    ctx.moveTo(i * tamanhoQuadrado, 0);
-                    ctx.lineTo(i * tamanhoQuadrado, canvas.height);
-                    ctx.stroke();
+                        //Linha vertical
+                        ctx.beginPath();
+                        ctx.moveTo(i * tamanhoQuadrado, 0);
+                        ctx.lineTo(i * tamanhoQuadrado, canvas.height);
+                        ctx.stroke();
 
-                    //Linha horizontal
-                    ctx.beginPath();
-                    ctx.moveTo(0, i * tamanhoQuadrado);
-                    ctx.lineTo(canvas.width, i * tamanhoQuadrado);
-                    ctx.stroke();
+                        //Linha horizontal
+                        ctx.beginPath();
+                        ctx.moveTo(0, i * tamanhoQuadrado);
+                        ctx.lineTo(canvas.width, i * tamanhoQuadrado);
+                        ctx.stroke();
                 } 
-               
+
+                // ----- PASSO 3: Desenhar a cobra ---------------------
+                // forEach: outra forma de percorrer um array
+                // "Para cada pedaço da cobra, faça..."
+                cobra.forEach( (pedaco, indice) => {
+
+                    let cor_do_pedaco = '#4CAF50';
+                    if(indice === 0){
+                        cor_do_pedaco = '#2d5016';
+                    }
+                    ctx.fillStyle = cor_do_pedaco;
+
+                    ctx.fillRect(
+                        pedaco.x * tamanhoQuadrado + 1,
+                        pedaco.y * tamanhoQuadrado + 1,
+                        tamanhoQuadrado -2,
+                        tamanhoQuadrado -2
+                    );
+
+                    //Brilho (efeito de luz) - pequeno retangulo branco semi-transparente
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctx.fillRect(
+                        pedaco.x * tamanhoQuadrado + 2,
+                        pedaco.y * tamanhoQuadrado + 2,
+                        tamanhoQuadrado / 2,
+                        tamanhoQuadrado / 2
+                    );
+                });
+
+
+               //----  PASSO 4 - Desenhar a comida (círculo vermelho)
+               ctx.fillStyle = '#dc3545';
+               ctx.beginPath();
+               ctx.arc(
+                    comida.x * tamanhoQuadrado + tamanhoQuadrado / 2,
+                    comida.y * tamanhoQuadrado + tamanhoQuadrado / 2,
+                    tamanhoQuadrado / 2 - 2,
+                    0,
+                    Math.PI * 2
+               );
 
                 ctx.fill();
             }
@@ -326,8 +418,22 @@
             }
 
             function mudarDirecao(novaDirecao){
-                //bem aqui vai aparecer um bug
-                proximaDirecao = novaDirecao;
+              
+                if(novaDirecao === 'cima'    &&  direcao !== 'baixo'){
+                    proximaDirecao = 'cima';
+                }
+
+                if(novaDirecao === 'baixo'    &&  direcao !== 'cima'){
+                    proximaDirecao = 'baixo';
+                }
+
+                if(novaDirecao === 'esquerda'    &&  direcao !== 'direita'){
+                    proximaDirecao = 'esquerda';
+                }
+
+                if(novaDirecao === 'direita'    &&  direcao !== 'esquerda'){
+                    proximaDirecao = 'direita';
+                }
             }
             
             function pausarJogo(){
