@@ -444,9 +444,13 @@
 //==== PAUSAR O JOGO
 //==========================
 function pausarJogo(){
-    pausarJogo = !pausarJogo;
+    if(!jogoAtivo){
+        return;
+    }
 
-    if(pausarJogo){
+    jogoPausado = !jogoPausado;
+
+    if(jogoPausado){
         clearInterval(intervaloJogo);
     }else{
         intervaloJogo = setInterval(atualizarJogo, 500);
