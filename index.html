@@ -446,7 +446,7 @@
 function pausarJogo(){
     pausarJogo = !pausarJogo;
 
-    if(pausarJogo === true){
+    if(pausarJogo){
         clearInterval(intervaloJogo);
     }else{
         intervaloJogo = setInterval(atualizarJogo, 500);
