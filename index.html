@@ -455,14 +455,22 @@ function pausarJogo(){
 //==== CONTROLE DE TECLADO
 //==========================
 document.addEventListener('keydown', function(event){
+
     if(event.key === 'ArrowDown'){
+        event.preventDefault();
         mudarDirecao('baixo');
     }else if(event.key === 'ArrowUp'){
+        event.preventDefault();
         mudarDirecao('cima');
     }else if(event.key === 'ArrowLeft'){
+        event.preventDefault();
         mudarDirecao('esquerda');
     }else if(event.key === 'ArrowRight'){
+        event.preventDefault();
         mudarDirecao('direita');
+    }else if(event.key === ''){
+        event.preventDefault();
+        pausarJogo();
     }
 });
         
