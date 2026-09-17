@@ -247,7 +247,7 @@
                 }
 
                 //executa a função atualizarJogo a cada 100 milisegundos
-                intervaloJogo = setInterval(atualizarJogo, 500);
+                intervaloJogo = setInterval(atualizarJogo, 400);
             }
 
 
@@ -296,10 +296,14 @@
 
                // adiciona nova cabeça
                cobra.unshift(cabeca);
+
                //remover o último elemento do vetor
                cobra.pop();
+
                desenhar();                
             }
+            
+            
             //============================
             // FIM DE JOGO
             //============================
@@ -393,7 +397,7 @@
             }
 
             //=============================
-            //====FUNÇÃO PARA GERAR COMIDA
+            //==== GERAR COMIDA
             //=============================
             function gerarComida(){
                 let posicaoValida = false;
@@ -417,6 +421,9 @@
                 }
             }
 
+            //============================
+            //=====  MUDA A DIREÇÃO DA COBRA - CIMA, BAIXO, ESQUE, DIREI
+            //=============================
             function mudarDirecao(novaDirecao){
               
                 if(novaDirecao === 'cima'    &&  direcao !== 'baixo'){
@@ -436,54 +443,58 @@
                 }
             }
             
+
+            //============================
+            //==== PAUSAR O JOGO
+            //============================
             function pausarJogo(){
-                console.log('Pausa no Jogo!!')
+                if(!jogoAtivo){
+                    return;
+                }
+
+                jogoPausado = !jogoPausado;
+
+                if(jogoPausado){
+                    clearInterval(intervaloJogo);
+
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.fillStyle = 'white';
+                    ctx.font = '30px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('PAUSADO!', canvas.width/2, canvas.height/2); 
+                    
+                }else{
+                    intervaloJogo = setInterval(atualizarJogo, 400);
+                }
             }
 
-//==========================
-//==== PAUSAR O JOGO
-//==========================
-function pausarJogo(){
-    if(!jogoAtivo){
-        return;
-    }
+            //===========================
+            //==== CONTROLE DE TECLADO
+            //===========================
+           document.addEventListener('keydown', function(event){
+               
+                if(event.key === 'ArrowDown'){
+                    event.preventDefault();
+                    mudarDirecao('baixo');
+                }else if(event.key === 'ArrowUp'){
+                    event.preventDefault();
+                    mudarDirecao('cima');
+                }else if(event.key === 'ArrowLeft'){
+                    event.preventDefault();
+                    mudarDirecao('esquerda');
+                }else if(event.key === 'ArrowRight'){
+                    event.preventDefault();
+                    mudarDirecao('direita');
+                }else if(event.key === ' '){
+                    event.preventDefault();
+                    pausarJogo();
+                }
+           });
 
-    jogoPausado = !jogoPausado;
 
-    if(jogoPausado){
-        clearInterval(intervaloJogo);
-
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-    }else{
-        intervaloJogo = setInterval(atualizarJogo, 500);
-    }
-}
-//==== CONTROLE DE TECLADO
-//==========================
-document.addEventListener('keydown', function(event){
-
-    if(event.key === 'ArrowDown'){
-        event.preventDefault();
-        mudarDirecao('baixo');
-    }else if(event.key === 'ArrowUp'){
-        event.preventDefault();
-        mudarDirecao('cima');
-    }else if(event.key === 'ArrowLeft'){
-        event.preventDefault();
-        mudarDirecao('esquerda');
-    }else if(event.key === 'ArrowRight'){
-        event.preventDefault();
-        mudarDirecao('direita');
-    }else if(event.key === ''){
-        event.preventDefault();
-        pausarJogo();
-    }
-});
-        
-        
         </script>
 
     </body>
-</html>
+</html>æ
